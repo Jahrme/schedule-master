@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="map">
+  <head>
+    <script src='/public/lib/angular-google-maps/dist/angular-google-maps.js'></script>
+  </head>
+  <body>
+    <h1>Find Your Class!</h1>
+    <h3>Select a <u>Schedule</u> and <u>Class</u> to zoom in on the classroom.</h3>
+    <div>Schedule:</div>
+    <select class="form-control" ng-change="vm.showClasses()" data-ng-model="vm.selectedSchedule">
+      <option ng-repeat="schedule in vm.schedules" value="{{schedule}}">
+        {{vm.findTerm(schedule.term)}} ({{ schedule.classes.length }} classes)
+      </option>
+    </select>
+    <br/>
+    <div>Class:</div>
+    <select class="form-control" data-ng-model="vm.selectedClass" ng-change="vm.showLocationOnMap()">
+      <option ng-repeat="class in vm.classesToDisplay" value={{class}}>
+        {{class.name}}: {{class.times[0].days}} ({{class.times[0].times}})
+      </option>
+    </select>
+    <br/>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+  </body>
+</html>
